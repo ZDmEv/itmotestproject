@@ -2,16 +2,13 @@ package com.itmotest.itmotestproject.unitTest.service;
 
 import com.itmotest.itmotestproject.dao.UserDaoImpl;
 import com.itmotest.itmotestproject.model.User;
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class UserDaoTest {
 
-
     @Test
-    @Order(1)
     void correctAddTest() {
         var userDao = new UserDaoImpl();
         assertDoesNotThrow(() -> userDao.add(new User("Biba", "driver", 60)));
@@ -26,7 +23,6 @@ class UserDaoTest {
     }
 
     @Test
-    @Order(2)
     void correctDeleteTest() {
         var userDao = new UserDaoImpl();
         assertDoesNotThrow(() -> userDao.add(new User("Biba", "driver", 60)));
@@ -37,7 +33,6 @@ class UserDaoTest {
     }
 
     @Test
-    @Order(3)
     void correctEditTest() {
         var userDao = new UserDaoImpl();
         assertDoesNotThrow(() -> userDao.add(new User("Biba", "driver", 60)));
