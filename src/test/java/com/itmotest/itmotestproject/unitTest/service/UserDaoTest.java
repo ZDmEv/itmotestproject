@@ -1,0 +1,64 @@
+package com.itmotest.itmotestproject.unitTest.service;
+
+import com.itmotest.itmotestproject.dao.UserDao;
+import com.itmotest.itmotestproject.dao.UserDaoImpl;
+import com.itmotest.itmotestproject.model.User;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+class UserDaoTest {
+
+    UserDao userDao;
+
+    @BeforeEach
+    void setup() {
+        userDao = new UserDaoImpl();
+    }
+
+
+    @Test
+    @Order(1)
+    void correctAddTest() {
+        assertDoesNotThrow(() -> userDao.add(new User("Biba", "driver", 60)));
+        var users = userDao.allUsers();
+        assertEquals(1, users.size());
+        var user = users.get(0);
+        assertAll(
+                () -> assertEquals("Biba", user.getName()),
+                () -> assertEquals("driver", user.getJob()),
+                () -> assertEquals(60, user.getAge())
+        );
+    }
+
+    @Test
+    @Order(2)
+    void correctDeleteTest() {
+        assertDoesNotThrow(() -> userDao.add(new User("Biba", "driver", 60)));
+        var users = userDao.allUsers();
+        assertEquals(1, users.size());
+        assertDoesNotThrow(() -> userDao.delete(users.get(0)));
+        assertEquals(0, userDao.allUsers().size());
+    }
+
+    @Test
+    @Order(3)
+    void correctEditTest() {
+        assertDoesNotThrow(() -> userDao.add(new User("Biba", "driver", 60)));
+        var users = userDao.allUsers();
+        assertEquals(1, users.size());
+        var user = users.get(0);
+        assertAll(
+                () -> assertEquals("Biba", user.getName()),
+                () -> assertEquals("driver", user.getJob()),
+                () -> assertEquals(60, user.getAge())
+        );
+        user.setJob("builder");
+        assertDoesNotThrow(() -> userDao.edit(user));
+        users = userDao.allUsers();
+        assertEquals(1, users.size());
+        assertEquals("builder", users.get(0).getJob());
+    }
+}
