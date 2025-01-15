@@ -1,22 +1,17 @@
 package com.itmotest.itmotestproject.model;
 
 import jakarta.validation.constraints.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class User {
 
     public User(String name, String job, int age) {
-        this.name = name;
-        this.job = job;
-        this.age = age;
-    }
-
-    public User(long id, String name, String job, int age) {
-        this.id = id;
         this.name = name;
         this.job = job;
         this.age = age;
